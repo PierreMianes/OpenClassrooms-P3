@@ -197,3 +197,37 @@ footer{
 	margin-left: -390px;
 	margin-top: 10px;
 }
+
+/* Partie Filtre */
+
+.filtre {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 30px;
+	margin-left: 45px;
+	gap: 10px;
+}
+
+.filtre-bouton /*bouton css*/ {
+	border: 1px solid #1D6154;
+	color:#1D6154;
+	background-color: #FFFEF8;
+	font-size: 16px;
+	font-weight: 700;
+	text-align: center;	
+	font-family: 'Syne';
+	border-radius: 60px;
+	padding: 7px 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+.filtre-bouton:focus, .filtre-bouton.selectione{
+	background-color: #1D6154;
+	color:#FFFFFF;
+  	animation: none;
+}
+
+button[autofocus] {
+	outline: none;
+  }
