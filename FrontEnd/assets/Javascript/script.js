@@ -1,21 +1,28 @@
-async function fetchData() {
-    try {
-      const response = await fetch('http://localhost:5678/api/works', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
+//APPEL DE L'API ET REMPLACEMENT DE LA GALERIE//
+fetch('http://localhost:5678/api/works')
+  .then((response) => response.json())
+  .then((data) => {
+    data.forEach((work) => {
+      const figure = createWorkFigure(work);
+      imagesContainer.appendChild(figure);
+    });
+  });
   
-      if (!response.ok) {
-        throw new Error('Erreur réseau');
-      }
+const imagesContainer = document.querySelector('.gallery')
+
+function createWorkFigure(work) {
+  const figure = document.createElement('figure')
+  const figureCaption = document.createElement('figcaption')
+  const figureImage = document.createElement('img')
+
+  figureImage.src = work.imageUrl
+  figureImage.alt = work.title
+  figureCaption.innerHTML = work.title
+  figure.setAttribute('data-id', work.id);
+  figure.setAttribute('category-id', work.categoryId)
   
-      const data = await response.json();
-      console.log(data);
-      // Ajoutez ici le code pour traiter les données retournées
-  
-    } catch (error) {
-      console.error('Erreur lors de la requête:', error);
-    }
-  }
+  figure.appendChild(figureImage)
+  figure.appendChild(figureCaption)    
+
+  return figure;
+}

@@ -52,6 +52,7 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color:#FFFEF8;
 }
 header {
 	display: flex;
@@ -182,7 +183,17 @@ input[type="submit"]{
 
 footer nav ul {
 	display: flex;
+	flex-direction: row;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
+	padding-top: 20px;
+	padding-right: 175px;
 }
 
+footer{
+	background-color: red;
+	height: 60px;
+	width: 168.4%;
+	margin-left: -390px;
+	margin-top: 10px;
+}
