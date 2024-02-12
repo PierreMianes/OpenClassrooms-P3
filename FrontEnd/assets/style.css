@@ -3,7 +3,7 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
+html, div, .main-container,span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -28,7 +28,7 @@ article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
-body {
+.main-container {
 	line-height: 1;
 }
 ol, ul {
@@ -47,11 +47,15 @@ table {
 	border-spacing: 0;
 }
 /** end reset css**/
-body {
+.main-container {
 	max-width: 1140px;
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color:#FFFEF8;
+}
+
+body {
 	background-color:#FFFEF8;
 }
 header {
@@ -91,17 +95,26 @@ nav ul {
 	list-style-type: none;
 
 }
-nav li {
-	padding: 0 10px;
+nav li,a {
+	padding: 0 25px;
 	font-size: 1.2em;
+	text-decoration: none;
+	color: black;
 }
 
-li:hover {
+ul a:hover {
 	color: #B1663C;
 }
+
+ul li:hover {
+	color: #B1663C;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
+	margin-bottom: 40px;
+	margin-bottom: 140px;
 }
 #introduction figure {
 	flex: 1
@@ -140,7 +153,7 @@ li:hover {
 }
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -181,21 +194,25 @@ input[type="submit"]{
 	border-radius: 60px ;
 }
 
-footer nav ul {
+.footer-text {
+	display: flex;
+	font-family: 'Work Sans';
+	font-size: 14px;
+	font-weight: 300;
+	padding-right: 100px;
+}
+
+footer {
 	display: flex;
 	flex-direction: row;
 	justify-content: flex-end;
-	margin: 2em;
-	padding-top: 20px;
-	padding-right: 175px;
-}
-
-footer{
-	background-color: red;
+	align-items: center;
+	width: 100%;
 	height: 60px;
-	width: 168.4%;
-	margin-left: -390px;
-	margin-top: 10px;
+	margin-bottom: -8px;
+	margin-left: -8px;
+	padding-right: 16px;
+	background-color: white;
 }
 
 /* Partie Filtre */
@@ -203,12 +220,12 @@ footer{
 .filtre {
 	display: flex;
 	justify-content: center;
+	align-items: center;
 	margin-bottom: 30px;
-	margin-left: 45px;
 	gap: 10px;
 }
 
-.filtre-bouton /*bouton css*/ {
+.filtre-bouton {
 	border: 1px solid #1D6154;
 	color:#1D6154;
 	background-color: #FFFEF8;
@@ -231,3 +248,131 @@ footer{
 button[autofocus] {
 	outline: none;
   }
+
+/* Partie Login */
+
+#login {
+	display: block;
+}
+
+#logout {
+	display: none;
+}
+
+#connexion {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	height: auto;
+	margin-top: 100px;
+	margin-bottom: 320px;
+}
+
+#connexion h2{
+	margin-bottom: 20px;
+}
+
+#connexion form{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.connexionChamp {
+	display: flex;
+	flex-direction: column;
+	margin-top: 25px;
+}
+
+
+#connexion label {
+	font-family: 'Work Sans';
+	font-size: 0.9em;
+	color: rgba(0, 0, 0, 0.756);
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+
+#email, #password {
+	width: 379px;
+	height: 51px;
+	box-shadow: 0px 4px 14px 0px #00000017;
+	border-width: 0px;
+}
+
+.connexionBouton {
+	width: 179px;
+	height: 36px;
+	animation: none;
+}
+
+#connexion a{
+	margin-top: 5px;
+	font-size: 0.9em;
+	text-decoration: underline;
+}
+
+#submitInfo {
+	font-family: 'Syne';
+	font-size: 0.9em;
+	color: white;
+	background-color: #1D6154;
+	border-width: 0px;
+	text-align: center;
+	border-radius: 60px ;
+	padding: 7px 25px 7px 25px;
+	width: 150px;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
+#admin-co {
+	display: flex;
+	justify-content: center;
+	height: 59px;
+	width: 100%;
+	margin-top: -8px;
+	margin-left: -8px;
+	padding-right: 16px;
+	background-color: black;
+}
+
+#mode-edit {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#admin-co p {
+	font-family: 'Work Sans';
+	font-size: 16px;
+	font-weight: 400;
+	margin-left: 5px;
+	color: white;
+}
+
+#admin-co i {
+	font-size: 1.1em;
+	color: white;
+}
+
+#portfolio-modif{
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+}
+
+#portfolio-modif2 i{
+	margin-left: 30px;
+	font-size: 1.2em;
+}
+
+#portfolio-modif2 {
+	display: flex;
+	flex-direction: row;
+	gap: 10px;
+}
+
+#portfolio-modif2 a {
+	padding: 0
+}

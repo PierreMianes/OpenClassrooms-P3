@@ -1,12 +1,4 @@
 //APPEL DE L'API ET REMPLACEMENT DE LA GALERIE//
-fetch('http://localhost:5678/api/works')
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((work) => {
-      const figure = createWorkFigure(work);
-      imagesContainer.appendChild(figure);
-    });
-  });
 
 const imagesContainer = document.querySelector('.gallery')
 
@@ -26,6 +18,15 @@ function createWorkFigure(work) {
 
   return figure;
 }
+
+fetch('http://localhost:5678/api/works')
+  .then((response) => response.json())
+  .then((data) => {
+    data.forEach((work) => {
+      const figure = createWorkFigure(work);
+      imagesContainer.appendChild(figure);
+    });
+  });
 
 /*PARTIE DES FILTRES*/
 
@@ -122,4 +123,57 @@ window.onbeforeunload = function(){
 sessionStorage.removeItem('boutonSelectionne');
 }
 
-/* PARTIE LOGIN */
+/* Défilement plus smooth des navlinks*/
+
+const navLinks = document.querySelectorAll('nav ul a');
+
+navLinks.forEach(link => {
+    link.addEventListener('click', event => {
+        const href = link.getAttribute('href');
+
+        if (href.startsWith('#')) {
+           
+            event.preventDefault();
+            const targetId = href.substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+/* PARTIE LOGIN ADMIN */
+
+document.addEventListener("DOMContentLoaded", function() {
+  const loginStatus = document.getElementById("login");
+  const logoutStatus = document.getElementById("logout");
+  const adminStatus = document.getElementById("admin-co");
+  const portfolioModif = document.getElementById("portfolio-modif2");
+  const filtreModif = document.querySelector(".filtre");
+
+  /* AFFICHER LES ELEMENTS SELON LE STATUS DE L'ADMIN */
+  
+  if (JSON.parse(sessionStorage.getItem("isConnected"))) {
+      loginStatus.style.display = 'none';
+      logoutStatus.style.display = 'block';
+      adminStatus.style.display = 'flex';
+      portfolioModif.style.display = 'flex';
+      filtreModif.style.display = 'none';
+  } else {
+      loginStatus.style.display = 'block';
+      logoutStatus.style.display = 'none';
+      adminStatus.style.display = 'none';
+      portfolioModif.style.display = 'none';
+      filtreModif.style.display = 'flex';
+  }
+
+  /* DECONNECTER L'UTILISATEUR */
+  logoutStatus.addEventListener("click", (event) => {
+      event.preventDefault();
+      sessionStorage.removeItem("Token");
+      sessionStorage.removeItem("isConnected");
+      window.location.replace("index.html");
+  });
+});
+
+

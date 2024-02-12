@@ -11,17 +11,45 @@
     <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
-<header>
-    <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-    <nav>
-        <ul>
-            <li>projets</li>
-            <li>contact</li>
-            <li>login</li>
-            <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-        </ul>
-    </nav>
-</header>
+    <div class="main-container">
+        <header>
+            <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+            <nav>
+                <ul>
+                    <a href="#projet">projets</a>
+                    <a href="#contact">contact</a>
+                    <a href="./login.html" id="login">login</a>
+                    <a href="index.html" id="logout">logout</a>
+                    <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+                </ul>
+            </nav>
+        </header>
+
+    <main>
+        <section id="connexion">
+            <h2>Log In</h2>
+            <form class="loginForm" action="#" method="#"></form>
+            <div class="connexionChamp">
+                <label>E-mail</label>
+                <input type="email" name="email" id="email" required >
+            </div>
+            <div class="connexionChamp">
+                <label>Mot de passe</label>
+                <input type="password" name="password" id="password" required >
+            </div>
+                <input class="connexionBouton" type="submit" id="submitInfo" value="Se connecter">
+            <a href="#">Mot de passe oublié</a>
+        </section>
+    </main> 
     
+    </div>
+    <footer class="footer-login">
+        <nav>
+                <ul >
+                        <li class="footer-text">Mentions Légales</li>
+                </ul>
+        </nav>
+    </footer>
 </body>
+<script src="Javascript/login.js"></script>
 </html>
