@@ -19,17 +19,18 @@
 				<p class="text-edit">Mode édition</p>
 		</div>
 	</section>
+	
 <div class="main-container">
 
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
-			<a href="#projet">projets</a>
-			<a href="#contact">contact</a>
-			<a href="./login.html" id="login">login</a>
-			<a href="index.html" id="logout">logout</a>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+			<li><a href="#projet">projets</a></li>
+			<li><a href="#contact">contact</a></li>
+			<li><a href="./login.html" id="login">login</a></li>
+			<li><a href="index.html" id="logout">logout</a></li>
+			<li><i class="fa-brands fa-instagram"></i></li>
 		</ul>
 	</nav>
 </header>
@@ -48,7 +49,7 @@
 		</article>
 	</section>
 
-	<section id="modal">
+	<aside id="modal">
 		<div id="modal-contenu">
 			<div class="modal-cross">		
 				<button id="modal-close"><i class="fa-solid fa-xmark"></i></button>
@@ -74,26 +75,26 @@
 					</div>
 
 					<div class="form-input">
-						<label for="titre">Titre</label>
+						<label for="modal-photo-titre">Titre</label>
 						<input type="text" name="titre" id="modal-photo-titre">
 					</div>
 
 					<div class="form-input" id="barre-gris">
-						<label for="categorie">Catégorie</label>
+						<label for="modal-photo-categorie">Catégorie</label>
 						<select name="categorie" id="modal-photo-categorie">
-							<option value="" selected></option>
+							<option value="" selected>&nbsp;</option>
 						</select>
 					</div>
 					<input type="submit" value="Valider" id="modal-photo-valider">
 			</form>
 		</div>
-	</section>
+	</aside>
 
 	<section id="portfolio">
 		<div id="portfolio-modif">
 		    <h2 id="projet">Mes Projets</h2>
 				<div id="portfolio-modif2">
-					<i id="modal-trigger" class="fa-regular fa-pen-to-square"></i>
+					<i id="modal-trigger-img" class="fa-regular fa-pen-to-square"></i>
 						<a id="modal-trigger">modifier</a>
 				</div>
 		</div>
@@ -124,13 +125,12 @@
 
 </div>
 <footer>
-	<nav>
-			<ul >
-					<li class="footer-text">Mentions Légales</li>
-			</ul>
-	</nav>
+	<div class="footer-content">
+		<p>Mentions Légales</p>
+	</div>
 </footer>
-</body>
 <script src="Javascript/script.js"></script>
 <script src="Javascript/modal.js"></script>
+</body>
+
 </html>

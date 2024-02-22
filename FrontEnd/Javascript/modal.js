@@ -4,17 +4,27 @@ const modalPhoto = document.querySelector('#modal-photo')
 const modalClose = document.querySelector('#modal-close')
 const modifier = document.querySelector('#portfolio-modif2')
 
-function showModal () {
+function showModal() {
+    modal.classList.add('modal-open');
     modal.style.display = 'block';
     modalContenu.style.display = 'block';
     modalPhoto.style.display = 'none';
+    document.body.style.overflow = 'hidden'; // Empêche le défilement de la page principale
+    document.addEventListener('wheel', preventModalScroll, { passive: false }); // Écoute l'événement de la molette de la souris
 }
 
 function hideModal () {
     modal.style.display = 'none';
     isSecondFormVisible = false;
+    document.body.style.overflow = ''; // Restaure le défilement de la page principale
+    document.removeEventListener('wheel', preventModalScroll); // Arrête d'écouter l'événement de la molette de la souris
 }
 
+function preventModalScroll(event) {
+    if (modal.classList.contains('modal-open')) {
+        event.preventDefault(); // Empêche le comportement par défaut de la molette de la souris si la modale est ouverte
+    }
+}
 
 modalContenu.addEventListener('click', function(e) {
     e.stopPropagation();
@@ -145,47 +155,39 @@ function checkForm() {
         }  
 }
     imageInput.addEventListener("change", function () {
-    const selectedImage = imageInput.files[0];
-    
+    const selectedImage = imageInput.files[1];
+
     /* Vérifier si une image a été sélectionnée */
     if (selectedImage) {
         /* Vérifier l'extension du fichier*/
         const fileName = selectedImage.name;
         const fileExtension = fileName.split('.').pop().toLowerCase();
-        
         if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
-            /* Réinitialiser la valeur de l'input file pour permettre à l'utilisateur de sélectionner une autre image*/
-            imageInput.value = '';
-            /* L'extension est correcte, activer le bouton de validation*/
-            validerButton.disabled = false;
-        } else {
-            /* L'extension n'est pas correcte, désactiver le bouton de validation*/
-            validerButton.disabled = true;
-            alert("Veuillez choisir une image au format JPG ou PNG.");
-            /* Réinitialiser la valeur de l'input file pour empêcher le téléchargement du fichier*/
-            imageInput.value = '';
-        }
+                    /* Réinitialiser la valeur de l'input file pour permettre à l'utilisateur de sélectionner une autre image*/
+                    imageInput.value = '';
+                    /* L'extension est correcte, activer le bouton de validation*/
+                    validerButton.disabled = false;
+                } else {
+                    /* L'extension n'est pas correcte, désactiver le bouton de validation*/
+                    validerButton.disabled = true;
+                    alert("Veuillez choisir une image au format JPG ou PNG.");
+                    /* Réinitialiser la valeur de l'input file pour empêcher le téléchargement du fichier*/
+                    imageInput.value = '';
+                }
+
+        if (selectedImage.size > 4 * 1024 * 1024) {
+                        /* La taille de l'image dépasse 4 Mo, afficher un message d'alerte*/
+                        alert("La taille de l'image ne doit pas dépasser 4 Mo.");
+                        /* Réinitialiser la valeur de l'input file pour permettre à l'utilisateur de sélectionner une autre image*/
+                        imageInput.value = '';
+                        /* Désactiver le bouton de validation*/
+                        validerButton.disabled = true;
+                    } else {
+                        /* La taille de l'image est acceptable, activer le bouton de validation*/
+                        validerButton.disabled = false;
+                    }
     }
 });
-
-    imageInput.addEventListener("change", function () {
-            const selectedImage = imageInput.files[0];
-            
-            /* Vérifier si une image a été sélectionnée*/
-            if (selectedImage) {
-            /* Vérifier la taille de l'image
-            if (selectedImage.size > 4 * 1024 * 1024) {
-                /* La taille de l'image dépasse 4 Mo, afficher un message d'alerte*/
-                alert("La taille de l'image ne doit pas dépasser 4 Mo.");
-                /* Réinitialiser la valeur de l'input file pour permettre à l'utilisateur de sélectionner une autre image*/
-                imageInput.value = '';
-                /* Désactiver le bouton de validation*/
-                validerButton.disabled = true;
-            } else {
-                /* La taille de l'image est acceptable, activer le bouton de validation*/
-                validerButton.disabled = false;
-            }
-        });
 
 titreInput.addEventListener('input', checkForm);
 categorieSelect.addEventListener('change', checkForm);
@@ -211,10 +213,6 @@ function addNewWork(event) {
         return;
     }
 
-    /* checker si l'image fait moins de 4mop (e2) */
-
-    
-
     const formData = new FormData();
   formData.append("title", titre);
   formData.append("category", categorie);
@@ -234,7 +232,7 @@ function addNewWork(event) {
     /* Ajout réussi, réinitialisation du formulaire */
     document.getElementById("modal-photo-titre").value = "";
     document.getElementById("modal-photo-categorie").selectedIndex = 0;
-    document.getElementById("image").value = "";
+    document.getElementById("image").value = '';
 
     /* ajouter la nouvelle oeuvre à la galerie*/
     const figure = createWorkFigure(work);
@@ -246,11 +244,11 @@ function addNewWork(event) {
     const galleryModal = document.querySelector('.gallery-modal');
     galleryModal.appendChild(figureModal);
 
+    // Fermer la modale une fois l'ajout réussi
+    hideModal();
+
   })
-  .catch(error => {
-    console.error(error);
-    alert("Une erreur s'est produite lors de l'ajout de l'œuvre. Veuillez réessayer plus tard.");
-});
+  .catch(error => console.error(error));
 }
 
 /* PREVIEW DE L'IMAGE CHOISIE */
