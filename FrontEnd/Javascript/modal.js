@@ -18,6 +18,17 @@ function hideModal () {
     isSecondFormVisible = false;
     document.body.style.overflow = ''; // Restaure le défilement de la page principale
     document.removeEventListener('wheel', preventModalScroll); // Arrête d'écouter l'événement de la molette de la souris
+
+    document.getElementById("modal-photo-titre").value = "";
+    document.getElementById("modal-photo-categorie").selectedIndex = 0;
+    const imageContainer = document.getElementById('image-container')
+    imageContainer.innerHTML = ''
+
+    labelImage.style.display = "block"; 
+    pImage.style.display = "block";
+    inputImage.style.display = "none";
+    iModalImage.style.display = "block";
+
 }
 
 function preventModalScroll(event) {
@@ -138,60 +149,33 @@ function deleteWorkById(workId) {
 
 /* CONDITION POUR AJOUTER UNE OEUVRE*/
 
+const validerButton = document.getElementById('modal-photo-valider');
+
 document.addEventListener('DOMContentLoaded', function() {
     checkForm();
 });
-
-const titreInput = document.getElementById('modal-photo-titre');
-const categorieSelect = document.getElementById('modal-photo-categorie');
-const imageInput = document.getElementById('image');
-const validerButton = document.getElementById('modal-photo-valider');
-
 function checkForm() {
-    if (titreInput.value !== '' && categorieSelect.value !== '' && imageInput.value !== '') {
-        validerButton.style.backgroundColor = '#1D6154';
-      } else {
-        validerButton.style.backgroundColor = '#A7A7A7';
-        }  
-}
-    imageInput.addEventListener("change", function () {
-    const selectedImage = imageInput.files[1];
 
-    /* Vérifier si une image a été sélectionnée */
-    if (selectedImage) {
-        /* Vérifier l'extension du fichier*/
-        const fileName = selectedImage.name;
-        const fileExtension = fileName.split('.').pop().toLowerCase();
-        if (fileExtension === 'jpg' || fileExtension === 'jpeg' || fileExtension === 'png') {
-                    /* Réinitialiser la valeur de l'input file pour permettre à l'utilisateur de sélectionner une autre image*/
-                    imageInput.value = '';
-                    /* L'extension est correcte, activer le bouton de validation*/
-                    validerButton.disabled = false;
-                } else {
-                    /* L'extension n'est pas correcte, désactiver le bouton de validation*/
-                    validerButton.disabled = true;
-                    alert("Veuillez choisir une image au format JPG ou PNG.");
-                    /* Réinitialiser la valeur de l'input file pour empêcher le téléchargement du fichier*/
-                    imageInput.value = '';
-                }
+    const imageContainer = document.getElementById('image-container')
+    const imageChosen = imageContainer.innerHTML !== ''
 
-        if (selectedImage.size > 4 * 1024 * 1024) {
-                        /* La taille de l'image dépasse 4 Mo, afficher un message d'alerte*/
-                        alert("La taille de l'image ne doit pas dépasser 4 Mo.");
-                        /* Réinitialiser la valeur de l'input file pour permettre à l'utilisateur de sélectionner une autre image*/
-                        imageInput.value = '';
-                        /* Désactiver le bouton de validation*/
-                        validerButton.disabled = true;
-                    } else {
-                        /* La taille de l'image est acceptable, activer le bouton de validation*/
-                        validerButton.disabled = false;
-                    }
+    const titleInput = document.getElementById('modal-photo-titre')
+    const titleEntered = titleInput.value.trim() !== ''
+
+    const categorySelect = document.getElementById('modal-photo-categorie')
+    const categorySelected = categorySelect.value !== ''
+
+
+    if (imageChosen && titleEntered && categorySelected) {
+        document.getElementById('modal-photo-valider').style.backgroundColor = "#1D6154"
+    } else {
+        document.getElementById('modal-photo-valider').style.backgroundColor = "#A7A7A7"
     }
-});
+}
 
-titreInput.addEventListener('input', checkForm);
-categorieSelect.addEventListener('change', checkForm);
-imageInput.addEventListener('change', checkForm);
+document.getElementById('modal-photo-titre').addEventListener('input', checkForm)
+document.getElementById('modal-photo-categorie').addEventListener('change', checkForm)
+
 validerButton.addEventListener('click', addNewWork);
 
 /* AJOUTER UNE NOUVELLE OEUVRE */
@@ -206,10 +190,16 @@ function addNewWork(event) {
     const categorie = document.getElementById("modal-photo-categorie").value;
     const image = document.getElementById("image").files[0];
 
+
     /* checker si tout les champ sont remplie (e1) */
 
     if(!titre || !categorie || !image) {
         alert('Veuillez remplir tout les champs de ce formulaire.')
+        return;
+    }
+
+    if (image.size > 4 * 1024 * 1024) {
+        alert("La taille de l'image ne doit pas dépasser 4 Mo.");
         return;
     }
 
@@ -230,9 +220,7 @@ function addNewWork(event) {
   .then(work => {
 
     /* Ajout réussi, réinitialisation du formulaire */
-    document.getElementById("modal-photo-titre").value = "";
-    document.getElementById("modal-photo-categorie").selectedIndex = 0;
-    document.getElementById("image").value = '';
+   
 
     /* ajouter la nouvelle oeuvre à la galerie*/
     const figure = createWorkFigure(work);
@@ -258,18 +246,19 @@ const labelImage = document.getElementById("label-image");
 const pImage = document.querySelector("#form-photo > p");
 const iconeImage = document.querySelector("#iModalImage");
 
+
 inputImage.addEventListener("change", function () {
   const selectedImage = inputImage.files[0];
 
   const imgPreview = document.createElement("img");
   imgPreview.src = URL.createObjectURL(selectedImage);
-  imgPreview.style.maxHeight = "100%";
-  imgPreview.style.width = "auto";
+  imgPreview.style.maxHeight = "193px";
+  imgPreview.style.width = "129px";
 
-  labelImage.style.display = "none";
+  labelImage.style.display = "none"; 
   pImage.style.display = "none";
   inputImage.style.display = "none";
   iModalImage.style.display = "none";
-  document.getElementById("form-photo").appendChild(imgPreview);
+  document.getElementById("image-container").appendChild(imgPreview);
 });
 
