@@ -21,8 +21,8 @@ function hideModal () {
 
     document.getElementById("modal-photo-titre").value = "";
     document.getElementById("modal-photo-categorie").selectedIndex = 0;
-    const imageContainer = document.getElementById('image-container')
-    imageContainer.innerHTML = ''
+    const imageContainer = document.getElementById('image-container');
+    imageContainer.innerHTML = "";
 
     labelImage.style.display = "block"; 
     pImage.style.display = "block";
@@ -55,8 +55,9 @@ document.addEventListener('click', function(e) {
     }
 });
 
-/* Modal Navigation entre étapes */
 
+
+/* Modal Navigation entre étapes */
 
 
 const newPhotoBouton = document.querySelector('#ajout-photo');
@@ -218,9 +219,6 @@ function addNewWork(event) {
   })
   .then(reponse => reponse.json())
   .then(work => {
-
-    /* Ajout réussi, réinitialisation du formulaire */
-   
 
     /* ajouter la nouvelle oeuvre à la galerie*/
     const figure = createWorkFigure(work);
